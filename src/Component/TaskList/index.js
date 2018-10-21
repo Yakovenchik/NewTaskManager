@@ -7,19 +7,30 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 @observer
 class TaskList extends Component {
-    handleClick(e, index) {
-        e.preventDefault();
+    handleClick(index) {
         taskStore.currentPage = index;
+        const address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr&page='+(taskStore.currentPage+1);
+        fetch(address)
+            .then(response=>
+                response.json()
+            )
+            .then(res=>{
+                taskStore.taskList = res.message.tasks;
+                taskStore.totalCount = res.message.total_task_count;
+            })
+            .catch(error=>{
+                console.log(error);
+            });
     }
     render(){
-        let pageSize = 3;
-        let pagesCount = Math.ceil(taskStore.taskList.length / pageSize);
+        const pageSize = 3;
+        const pagesCount = Math.ceil(taskStore.totalCount / pageSize);
         return(
             <div>
                 <Pagination aria-label="Page navigation example">
                     <PaginationItem disabled={taskStore.currentPage <= 0}>
                         <PaginationLink
-                            onClick={e => this.handleClick(e, taskStore.currentPage - 1)}
+                            onClick={() => this.handleClick( taskStore.currentPage - 1)}
                             previous
                             href="#"
                         />
@@ -27,7 +38,7 @@ class TaskList extends Component {
 
                     {[...Array(pagesCount)].map((page, i) =>
                         <PaginationItem active={i === taskStore.currentPage} key={i}>
-                            <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+                            <PaginationLink onClick={() => this.handleClick(i)} href="#">
                                 {i + 1}
                             </PaginationLink>
                         </PaginationItem>
@@ -35,22 +46,18 @@ class TaskList extends Component {
 
                     <PaginationItem disabled={taskStore.currentPage >= pagesCount - 1}>
                         <PaginationLink
-                            onClick={e => this.handleClick(e, taskStore.currentPage + 1)}
+                            onClick={() => this.handleClick( taskStore.currentPage + 1)}
                             next
                             href="#"
                         />
                     </PaginationItem>
                 </Pagination>
                 {taskStore.taskList
-                    .slice(
-                        taskStore.currentPage * pageSize,
-                        (taskStore.currentPage + 1) * pageSize
-                    )
                     .map((item,i)=>{
                         return(
                             <div key={i}>
                                 <div className='task'>
-                                    <Task taskId={item.id} type="list"/>
+                                    <Task taskId={item.id} item={item} type="list"/>
                                 </div>
                             </div>
                         )

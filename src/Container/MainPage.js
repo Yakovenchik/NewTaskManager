@@ -10,7 +10,8 @@ export default class MainPage extends Component{
                 response.json()
             )
             .then(res=>{
-                taskStore.taskList = JSON.parse(res.message.tasks)
+                taskStore.taskList = res.message.tasks;
+                taskStore.totalCount = res.message.total_task_count;
             })
             .catch(error=>{
                 console.log(error);

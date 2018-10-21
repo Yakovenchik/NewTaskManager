@@ -1,12 +1,12 @@
 import { observable, action} from 'mobx';
 import {taskStore} from "./index";
-import axios from 'axios';
 
 export default class TaskStore{
     @observable taskList=[];
     @observable newTask = {};
     @observable adding = false;
     @observable currentPage = 0;
+    @observable totalCount = 0;
 
     @action addTask(elem){
             let form = new FormData();
@@ -20,20 +20,12 @@ export default class TaskStore{
             mimeType: "multipart/form-data",
             contentType: false,
             processData: false,
-            data: form,
+            body: form,
             dataType: "json"
         };
-        console.log(createInit.data.getAll("image"));
-        console.log(form.getAll("text"));
+
         let address = 'https://uxcandy.com/~shapoval/test-task-backend/create?developer=Aleksandr';
         fetch(address, createInit)
-            .then(response=>
-                response.json()
-            )
-            .then(response=>{
-                console.log(response);
-                }
-            )
             .catch(error=>{
                 console.log(error)
             });
@@ -41,8 +33,11 @@ export default class TaskStore{
             .then(response=>
                 response.json()
             )
-            .then(res =>
-                taskStore.taskList = JSON.parse(res.message.tasks))
+            .then(res => {
+                    this.taskList = res.message.tasks;
+                    this.totalCount = res.message.total_task_count;
+                }
+            )
             .catch(error=>{
                 console.log(error);
             });
@@ -65,9 +60,4 @@ export default class TaskStore{
             document.getElementById("add_task").style.display = 'none';
         }
     }
-
-    @action removeTask(i){
-        this.taskList.splice(i, 1);
-    }
-
 }

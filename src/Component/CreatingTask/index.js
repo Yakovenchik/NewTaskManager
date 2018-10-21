@@ -63,7 +63,7 @@ class CreatingTask extends Component {
                     </FormGroup>
                 </Form>
                 <div className='preview' id="Preview" style={{display: 'none'}}>
-                    <Task type="preview" />
+                    <Task item={taskStore.newTask} type="preview" />
                 </div>
             </div>
         )
