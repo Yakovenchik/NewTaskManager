@@ -1,0 +1,13 @@
+.block{
+    display:block;
+}
+.task{
+    cursor: pointer;
+    background-color: #555;
+    color: #fff;
+    left:5px;
+    top:5px;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin: 5px;
+}

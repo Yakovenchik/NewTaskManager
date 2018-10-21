@@ -1,0 +1,35 @@
+.add_task {
+    background-color: #552;
+    color: #fff;
+    position: absolute;
+    left: 35%;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    z-index: 3;
+}
+
+.button_group{
+    display: flex;
+    justify-content: space-around;
+    margin: 0.5em;
+}
+
+.preview{
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: #555;
+    color: #fff;
+    left:10%;
+    top:10%;
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 5;
+}
+
+.content {
+    margin: 2em;
+}
