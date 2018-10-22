@@ -49,7 +49,21 @@ export default class TaskStore{
         this.openForm("modify");
     }
     @action change(){
-
+        const form = new FormData();
+        form.append("text", this.changeTask.text);
+        form.append("status", this.changeTask.status);
+        form.append("token", "beejee");
+        let ;
+        form.append("signature", );
+        const createInit = {
+            crossDomain: true,
+            method: 'POST',
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            body: form,
+            dataType: "json"
+        };
     }
 
     @action openForm(id) {
