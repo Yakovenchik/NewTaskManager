@@ -2,6 +2,7 @@ import {observer} from "mobx-react";
 import React, {Component} from "react";
 import {taskStore, logIn} from "../../Store";
 import {Button, Label, Media} from "reactstrap";
+import './index.css';
 
 
 @observer
@@ -10,6 +11,7 @@ class Task extends Component {
         const {item} = this.props;
         return(
             <div className="content">
+                {item.status === 10 ? <div className="complete">COMPLETED</div>:null}
                 <Label>Id: {item.id}</Label>
                 <div>
                     <Label>Name: </Label>

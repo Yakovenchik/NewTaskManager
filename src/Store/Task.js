@@ -1,4 +1,5 @@
 import { observable, action} from 'mobx';
+import md5 from 'md5';
 
 export default class TaskStore{
     @observable taskList=[];
@@ -50,11 +51,11 @@ export default class TaskStore{
     }
     @action change(){
         const form = new FormData();
-        form.append("text", this.changeTask.text);
+        form.append("text", encodeURIComponent(this.changeTask.text));
         form.append("status", this.changeTask.status);
         form.append("token", "beejee");
-        let ;
-        form.append("signature", );
+        const params_string = "status="+this.changeTask.status+"&text="+form.get("text")+"&token=beejee";
+        form.append("signature", md5(params_string));
         const createInit = {
             crossDomain: true,
             method: 'POST',
@@ -64,6 +65,19 @@ export default class TaskStore{
             body: form,
             dataType: "json"
         };
+        const address = 'https://uxcandy.com/~shapoval/test-task-backend/edit/'+this.changeTask.id+'?developer=Aleksandr';
+        fetch(address, createInit)
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === "ok") {
+                   console.log(res)
+                }   else    {
+                    alert(JSON.stringify(res));
+                }})
+            .catch(error=>{
+                console.log(error)
+            });
+        this.receiveList('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr');
     }
 
     @action openForm(id) {
