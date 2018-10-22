@@ -1,0 +1,9 @@
+.modify{
+    position: fixed;
+    z-index: 10;
+    background-color: #552;
+    top: 30%;
+    left: 30%;
+    padding: 2em;
+    border-radius: 6px;
+}

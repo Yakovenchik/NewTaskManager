@@ -28,7 +28,7 @@ class CreatingTask extends Component {
         return(
             <div className='headerTask'>
                 <h1>Tasks</h1>
-                <Button onClick={()=>taskStore.openAdding()}>
+                <Button onClick={()=>taskStore.openForm("add_task")}>
                     {!taskStore.adding ? 'Add New Task' : 'Close Adding'}
                 </Button>
                 <Form className='add_task'  id = "add_task" style={{display: 'none'}} >
@@ -49,7 +49,7 @@ class CreatingTask extends Component {
                         <Input type="file" onChange={(e)=>this.getImage(e)}/>
                     </FormGroup>
                     <FormGroup className='button_group'>
-                        <Button onClick={()=>taskStore.openPreview()}>
+                        <Button onClick={()=>taskStore.openForm("preview")}>
                             Preview
                         </Button>
                         <Button onClick={()=>{
@@ -57,12 +57,12 @@ class CreatingTask extends Component {
                         }}>
                             New Task
                         </Button>
-                        <Button onClick={()=>taskStore.openAdding()}>
+                        <Button onClick={()=>taskStore.openForm("add_task")}>
                            Close Adding
                         </Button>
                     </FormGroup>
                 </Form>
-                <div className='preview' id="Preview" style={{display: 'none'}}>
+                <div className='preview' id="preview" style={{display: 'none'}}>
                     <Task item={taskStore.newTask} type="preview" />
                 </div>
             </div>

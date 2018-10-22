@@ -1,28 +1,22 @@
 import React, {Component} from 'react';
 import TaskList from '../Component/TaskList';
 import CreatingTask from '../Component/CreatingTask';
+import LogIn from '../Component/LogIn';
 import {taskStore} from "../Store";
+import Modify from "../Component/Modify";
 
 export default class MainPage extends Component{
     componentDidMount(){
-        fetch('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr')
-            .then(response=>
-                response.json()
-            )
-            .then(res=>{
-                taskStore.taskList = res.message.tasks;
-                taskStore.totalCount = res.message.total_task_count;
-            })
-            .catch(error=>{
-                console.log(error);
-            });
+        taskStore.receiveList('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr')
     }
 
     render(){
         return(
             <div>
+                <LogIn/>
                 <CreatingTask />
                 <TaskList />
+                <Modify/>
             </div>
         )
     }

@@ -10,17 +10,7 @@ class TaskList extends Component {
     handleClick(index) {
         taskStore.currentPage = index;
         const address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr&page='+(taskStore.currentPage+1);
-        fetch(address)
-            .then(response=>
-                response.json()
-            )
-            .then(res=>{
-                taskStore.taskList = res.message.tasks;
-                taskStore.totalCount = res.message.total_task_count;
-            })
-            .catch(error=>{
-                console.log(error);
-            });
+        taskStore.receiveList(address);
     }
     render(){
         const pageSize = 3;
@@ -52,6 +42,10 @@ class TaskList extends Component {
                         />
                     </PaginationItem>
                 </Pagination>
+                <br/>
+                <div>
+
+                </div>
                 {taskStore.taskList
                     .map((item,i)=>{
                         return(

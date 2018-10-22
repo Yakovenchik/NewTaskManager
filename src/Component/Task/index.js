@@ -1,8 +1,8 @@
 import {observer} from "mobx-react";
-import {Component} from "react";
-import {taskStore} from "../../Store";
+import React, {Component} from "react";
+import {taskStore, logIn} from "../../Store";
 import {Button, Label, Media} from "reactstrap";
-import React from "react";
+
 
 @observer
 class Task extends Component {
@@ -10,6 +10,7 @@ class Task extends Component {
         const {item} = this.props;
         return(
             <div className="content">
+                <Label>Id: {item.id}</Label>
                 <div>
                     <Label>Name: </Label>
                     <p>{item.username}</p>
@@ -27,8 +28,12 @@ class Task extends Component {
                     :
                     <Media alt={item.id} src={item.image_path}/>}
                 <br/>
+                {this.props.type !== "preview" && logIn.admin ?
+                    <Button onClick={() => {taskStore.modifyTask(item)}}>Change Content</Button> :
+                    null
+                }
                 {this.props.type === "preview" ?
-                    <Button onClick={() => taskStore.openPreview()}>Close Preview</Button> :
+                    <Button onClick={() => taskStore.openForm("preview")}>Close Preview</Button> :
                     null
                 }
             </div>
