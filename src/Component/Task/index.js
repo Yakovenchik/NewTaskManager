@@ -1,13 +1,13 @@
-import {observer} from "mobx-react";
+import {observer, inject} from "mobx-react";
 import React, {Component} from "react";
-import {taskStore, logIn} from "../../Store";
 import {Button, Label, Media} from "reactstrap";
 import './index.css';
 
-
+@inject('stores')
 @observer
 class Task extends Component {
     render(){
+        const {taskStore, logIn} = this.props.stores;
         const {item} = this.props;
         return(
             <div className="content">

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import { taskStore } from '../../Store/index';
+import { observer, inject } from 'mobx-react';
 import './index.css'
 import Task from "../Task";
 import { Pagination, PaginationItem, PaginationLink, Button, Label, FormGroup, Form } from 'reactstrap';
 
+@inject('stores')
 @observer
 class TaskList extends Component {
     handleClick(index) {
+        const {taskStore} = this.props.stores;
         taskStore.currentPage = index;
         const address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr&page='+(taskStore.currentPage+1);
         taskStore.receiveList(address);
     }
     render(){
+        const {taskStore} = this.props.stores;
         const pageSize = 3;
         const pagesCount = Math.ceil(taskStore.totalCount / pageSize);
         return(

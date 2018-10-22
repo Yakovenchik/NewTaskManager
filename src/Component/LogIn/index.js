@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import {taskStore, logIn} from "../../Store";
-import "./index.css"
+import "./index.css";
+import {observer, inject} from 'mobx-react';
 
-export default class LogIn extends Component {
+@inject('stores')
+@observer
+class LogIn extends Component {
     render() {
+        const {taskStore, logIn} = this.props.stores;
         return (
             <div>
                 <Button onClick={()=>taskStore.openForm("login_form")}>
@@ -33,3 +36,4 @@ export default class LogIn extends Component {
         );
     }
 }
+export default LogIn;

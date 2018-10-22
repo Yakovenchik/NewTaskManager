@@ -1,11 +1,12 @@
 import { observable, action} from 'mobx';
-import {taskStore} from "./index";
+import stores from "./index";
 
-export default class TaskStore{
+export default class LogIn{
     @observable admin = false;
     @observable authUser = {};
 
     @action auth(user){
+        const {taskStore} = stores;
         let flagChange = false;
         !user.username ? alert("Username is require") : !user.password ? alert("Password is reaquire") : flagChange = true;
         if (flagChange && user.username === "admin" && user.password === '123') {

@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import TaskList from '../Component/TaskList';
 import CreatingTask from '../Component/CreatingTask';
 import LogIn from '../Component/LogIn';
-import {taskStore} from "../Store";
 import Modify from "../Component/Modify";
+import {inject} from 'mobx-react';
 
-export default class MainPage extends Component{
+@inject('stores')
+class MainPage extends Component{
     componentDidMount(){
+        const {taskStore} = this.props.stores;
         taskStore.receiveList()
     }
 
@@ -21,3 +23,4 @@ export default class MainPage extends Component{
         )
     }
 }
+export default MainPage;

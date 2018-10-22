@@ -91,7 +91,7 @@ export default class TaskStore{
     }
 
     @action receiveList(address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr'){
-        fetch(address+'&sort_field='+this.sort.field+'&sort_direction='+this.sort.direction)
+        fetch(address+'&sort_field='+this.sort.field+'&sort_direction='+this.sort.direction+'&page='+(this.currentPage+1))
             .then(response=>
                 response.json()
             )

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import {taskStore} from '../../Store/index';
+import { observer, inject } from 'mobx-react';
 import Task from '../Task';
 import './index.css';
 import { Input, Button, Label, Form, FormGroup } from 'reactstrap';
 
-
+@inject('stores')
 @observer
 class CreatingTask extends Component {
 
     sendTask(newTask){
+        const taskStore = this.props.stores.taskStore;
         taskStore.addTask(newTask);
     }
 
     getImage(e){
-        let reader = new FileReader();
-        let file = e.target.files[0];
+        const { taskStore } = this.props.stores;
+        const reader = new FileReader();
+        const file = e.target.files[0];
 
         reader.onloadend = () => {
             taskStore.newTask.image = file;
@@ -25,6 +26,7 @@ class CreatingTask extends Component {
     }
 
     render(){
+        const { taskStore } = this.props.stores;
         return(
             <div className='headerTask'>
                 <h1>Tasks</h1>

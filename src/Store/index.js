@@ -1,5 +1,12 @@
 import TaskStore from "./Task";
 import LogIn from "./LogIn"
 
-export const taskStore = new TaskStore();
-export const logIn = new LogIn();
+const taskStore = new TaskStore();
+const logIn = new LogIn();
+
+const stores = {
+    taskStore,
+    logIn
+};
+
+export default stores;

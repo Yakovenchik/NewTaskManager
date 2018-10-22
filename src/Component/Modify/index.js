@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import {taskStore} from "../../Store";
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import './index.css';
 
+@inject('stores')
 @observer
 class Modify extends Component {
     render() {
+        const { taskStore } = this.props.stores;
         return (
             <Form className="modify" inline style={{display: 'none'}} id="modify">
                 <Label for="text" className="mr-sm-2">Id: {taskStore.changeTask.id}</Label>
