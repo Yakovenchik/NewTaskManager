@@ -7,7 +7,7 @@ import Modify from "../Component/Modify";
 
 export default class MainPage extends Component{
     componentDidMount(){
-        taskStore.receiveList('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr')
+        taskStore.receiveList()
     }
 
     render(){

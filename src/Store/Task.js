@@ -8,6 +8,10 @@ export default class TaskStore{
     @observable currentPage = 0;
     @observable totalCount = 0;
     @observable changeTask = {};
+    @observable sort = {
+        direction: '',
+        field: ''
+    };
 
     @action addTask(elem){
         const form = new FormData();
@@ -38,7 +42,7 @@ export default class TaskStore{
             .catch(error=>{
                 console.log(error)
             });
-        this.receiveList('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr');
+        this.receiveList();
     }
 
     @action modifyTask(item){
@@ -69,15 +73,13 @@ export default class TaskStore{
         fetch(address, createInit)
             .then(res => res.json())
             .then(res => {
-                if (res.status === "ok") {
-                   console.log(res)
-                }   else    {
+                if (res.status !== "ok") {
                     alert(JSON.stringify(res));
                 }})
             .catch(error=>{
                 console.log(error)
             });
-        this.receiveList('https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr');
+        this.receiveList();
     }
 
     @action openForm(id) {
@@ -88,8 +90,8 @@ export default class TaskStore{
         }
     }
 
-    @action receiveList(address){
-        fetch(address)
+    @action receiveList(address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr'){
+        fetch(address+'&sort_field='+this.sort.field+'&sort_direction='+this.sort.direction)
             .then(response=>
                 response.json()
             )

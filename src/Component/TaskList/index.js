@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { taskStore } from '../../Store/index';
 import './index.css'
 import Task from "../Task";
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Button, Label, FormGroup, Form } from 'reactstrap';
 
 @observer
 class TaskList extends Component {
@@ -43,9 +43,26 @@ class TaskList extends Component {
                     </PaginationItem>
                 </Pagination>
                 <br/>
-                <div>
-
-                </div>
+                <Form>
+                    <FormGroup>
+                        <Label>Sort type: {taskStore.sort.field}</Label> <br/>
+                        <Button onClick={()=>{taskStore.sort.field = "id";taskStore.receiveList()}}
+                        >Id </Button>
+                        <Button onClick={()=>{taskStore.sort.field = "email";taskStore.receiveList()}}
+                        >Email </Button>
+                        <Button onClick={()=>{taskStore.sort.field = "username";taskStore.receiveList()}}
+                        >Username </Button>
+                        <Button onClick={()=>{taskStore.sort.field = "status";taskStore.receiveList()}}
+                        >Status </Button>
+                    </FormGroup> <br/>
+                    <FormGroup>
+                        <Label>Sort direction: {taskStore.sort.direction}</Label> <br/>
+                        <Button onClick={()=>{taskStore.sort.direction = "asc";taskStore.receiveList()}}
+                        >ASC </Button>
+                        <Button onClick={()=>{taskStore.sort.direction = "desc";taskStore.receiveList()}}
+                        >DESC </Button>
+                    </FormGroup>
+                </Form>
                 {taskStore.taskList
                     .map((item,i)=>{
                         return(
@@ -55,7 +72,7 @@ class TaskList extends Component {
                                 </div>
                             </div>
                         )
-                    }).reverse()}
+                    })}
             </div>
         )
     }
