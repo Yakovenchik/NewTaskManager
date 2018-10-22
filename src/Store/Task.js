@@ -35,14 +35,14 @@ export default class TaskStore{
             .then(res => {
                 if (res.status === "ok") {
                     document.getElementById("add_task").reset();
-                    this.openForm("add_task")
+                    this.openForm("add_task");
+                    this.receiveList();
                 }   else    {
                     alert(JSON.stringify(res.message));
                 }})
             .catch(error=>{
                 console.log(error)
             });
-        this.receiveList();
     }
 
     @action modifyTask(item){
