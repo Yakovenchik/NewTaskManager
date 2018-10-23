@@ -1,1 +1,0 @@
-web: yarn start vendor/bin/heroku-php-apache2 dayside/
