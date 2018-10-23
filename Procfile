@@ -1,1 +1,2 @@
-web: vendor/bin/heroku-php-apache2 dayside/index.php yarn start
+web: yarn start
+web: vendor/bin/heroku-php-apache2 dayside/index.php
