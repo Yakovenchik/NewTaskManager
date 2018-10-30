@@ -6,6 +6,13 @@ import './index.css';
 @inject('stores')
 @observer
 class Task extends Component {
+    openForm(id) {
+        if (document.getElementById(id).style.display === 'none') {
+            document.getElementById(id).style.display = 'block';
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
     render(){
         const {taskStore, logIn} = this.props.stores;
         const {item} = this.props;
@@ -31,11 +38,11 @@ class Task extends Component {
                     <Media alt={item.id} src={item.image_path}/>}
                 <br/>
                 {this.props.type !== "preview" && logIn.admin ?
-                    <Button onClick={() => {taskStore.modifyTask(item)}}>Change Content</Button> :
+                    <Button onClick={() => {this.openForm("modify"); taskStore.modifyTask(item)}}>Change Content</Button> :
                     null
                 }
                 {this.props.type === "preview" ?
-                    <Button onClick={() => taskStore.openForm("preview")}>Close Preview</Button> :
+                    <Button onClick={() => this.openForm("preview")}>Close Preview</Button> :
                     null
                 }
             </div>

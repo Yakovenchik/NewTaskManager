@@ -6,11 +6,18 @@ import {observer, inject} from 'mobx-react';
 @inject('stores')
 @observer
 class LogIn extends Component {
+    openForm(id) {
+        if (document.getElementById(id).style.display === 'none') {
+            document.getElementById(id).style.display = 'block';
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
     render() {
-        const {taskStore, logIn} = this.props.stores;
+        const {logIn} = this.props.stores;
         return (
             <div>
-                <Button onClick={()=>taskStore.openForm("login_form")}>
+                <Button onClick={()=>this.openForm("login_form")}>
                     LogIn
                 </Button>
                 <Form className="login_form" inline style={{display: 'none'}} id="login_form">
@@ -27,9 +34,9 @@ class LogIn extends Component {
                         />
                     </FormGroup>
                     <div className="button_group">
-                        <Button onClick={()=>logIn.auth(logIn.authUser)}
+                        <Button onClick={()=>{logIn.auth(logIn.authUser); this.openForm("login_form")}}
                         >LogIn</Button>
-                        <Button onClick={()=>{taskStore.openForm("login_form")}}>Close</Button>
+                        <Button onClick={()=>{this.openForm("login_form")}}>Close</Button>
                     </div>
                 </Form>
             </div>

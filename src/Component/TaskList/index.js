@@ -10,8 +10,7 @@ class TaskList extends Component {
     handleClick(index) {
         const {taskStore} = this.props.stores;
         taskStore.currentPage = index;
-        const address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr&page='+(taskStore.currentPage+1);
-        taskStore.receiveList(address);
+        taskStore.receiveList();
     }
     render(){
         const {taskStore} = this.props.stores;

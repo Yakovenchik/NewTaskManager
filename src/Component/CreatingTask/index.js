@@ -13,6 +13,14 @@ class CreatingTask extends Component {
         taskStore.addTask(newTask);
     }
 
+    openForm(id) {
+        if (document.getElementById(id).style.display === 'none') {
+            document.getElementById(id).style.display = 'block';
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
+
     getImage(e){
         const { taskStore } = this.props.stores;
         const reader = new FileReader();
@@ -30,7 +38,7 @@ class CreatingTask extends Component {
         return(
             <div className='headerTask'>
                 <h1>Tasks</h1>
-                <Button onClick={()=>taskStore.openForm("add_task")}>
+                <Button onClick={()=>this.openForm("add_task")}>
                     {!taskStore.adding ? 'Add New Task' : 'Close Adding'}
                 </Button>
                 <Form className='add_task'  id = "add_task" style={{display: 'none'}} >
@@ -51,15 +59,15 @@ class CreatingTask extends Component {
                         <Input type="file" onChange={(e)=>this.getImage(e)}/>
                     </FormGroup>
                     <FormGroup className='button_group'>
-                        <Button onClick={()=>taskStore.openForm("preview")}>
+                        <Button onClick={()=>this.openForm("preview")}>
                             Preview
                         </Button>
                         <Button onClick={()=>{
-                            this.sendTask(taskStore.newTask);
+                            this.sendTask(taskStore.newTask); this.openForm("add_task")
                         }}>
                             New Task
                         </Button>
-                        <Button onClick={()=>taskStore.openForm("add_task")}>
+                        <Button onClick={()=>this.openForm("add_task")}>
                            Close Adding
                         </Button>
                     </FormGroup>

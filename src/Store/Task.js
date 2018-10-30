@@ -35,7 +35,6 @@ export default class TaskStore{
             .then(res => {
                 if (res.status === "ok") {
                     document.getElementById("add_task").reset();
-                    this.openForm("add_task");
                     this.receiveList();
                 }   else    {
                     alert(JSON.stringify(res.message));
@@ -51,7 +50,6 @@ export default class TaskStore{
             text: item.text,
             id: item.id
         };
-        this.openForm("modify");
     }
     @action change(){
         const form = new FormData();
@@ -75,22 +73,16 @@ export default class TaskStore{
             .then(res => {
                 if (res.status !== "ok") {
                     alert(JSON.stringify(res));
-                }})
+                }
+                this.receiveList();
+            })
             .catch(error=>{
                 console.log(error)
             });
-        this.receiveList();
     }
 
-    @action openForm(id) {
-        if (document.getElementById(id).style.display === 'none') {
-            document.getElementById(id).style.display = 'block';
-        } else {
-            document.getElementById(id).style.display = 'none';
-        }
-    }
-
-    @action receiveList(address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr'){
+    @action receiveList(){
+        const address = 'https://uxcandy.com/~shapoval/test-task-backend/?developer=Aleksandr';
         fetch(address+'&sort_field='+this.sort.field+'&sort_direction='+this.sort.direction+'&page='+(this.currentPage+1))
             .then(response=>
                 response.json()

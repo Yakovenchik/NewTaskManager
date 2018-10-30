@@ -6,6 +6,13 @@ import './index.css';
 @inject('stores')
 @observer
 class Modify extends Component {
+    openForm(id) {
+        if (document.getElementById(id).style.display === 'none') {
+            document.getElementById(id).style.display = 'block';
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
     render() {
         const { taskStore } = this.props.stores;
         return (
@@ -24,8 +31,8 @@ class Modify extends Component {
                     />
                 </FormGroup>
                 <FormGroup className="button_group">
-                    <Button onClick={()=>{taskStore.change()}}>Change</Button>
-                    <Button onClick={()=>{taskStore.openForm("modify")}}>Close</Button>
+                    <Button onClick={()=>{taskStore.change(); this.openForm("modify")}}>Change</Button>
+                    <Button onClick={()=>{this.openForm("modify")}}>Close</Button>
                 </FormGroup>
             </Form>
         );
