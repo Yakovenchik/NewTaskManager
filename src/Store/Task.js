@@ -9,8 +9,8 @@ export default class TaskStore{
     @observable totalCount = 0;
     @observable changeTask = {};
     @observable sort = {
-        direction: '',
-        field: ''
+        direction: 'asc',
+        field: 'Id'
     };
 
     @action addTask(elem){
